@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Delicious restaurant</title>
+  <!-- 引入样式 -->
+  <link rel="stylesheet" href="../../plugins/element-ui/index.css" />
+  <link rel="stylesheet" href="../../styles/common.css">
+  <link rel="stylesheet" href="../../styles/login.css">
+  <link rel="stylesheet" href="../../styles/icon/iconfont.css" />
+  <style>
+    .body{
+      min-width: 1366px;
+    }
+  </style>
+</head> 
+
+<body>
+  <div class="login" id="login-app">
+    <div class="login-box">
+      <img src="../../images/login/login_l.jpg" alt="">
+      <div class="login-form">
+        <el-form ref="loginForm" :model="loginForm" :rules="loginRules" >
+          <div class="login-form-title">
+            <img src="../../images/login/login_logo.png" style="width:200px;height:70px;" alt="" />
+          </div>
+          <el-form-item prop="username">
+            <el-input v-model="loginForm.username" type="text" auto-complete="off" placeholder="username" maxlength="20"
+              prefix-icon="iconfont icon-user" />
+          </el-form-item>
+          <el-form-item prop="password">
+            <el-input v-model="loginForm.password" type="password" placeholder="password" prefix-icon="iconfont icon-lock" maxlength="20"
+              @keyup.enter.native="handleLogin" />
+          </el-form-item>
+          <el-form-item style="width:100%;">
+            <el-button :loading="loading" class="login-btn" size="medium" type="primary" style="width:100%;"
+              @click.native.prevent="handleLogin">
+              <span v-if="!loading">Log in</span>
+              <span v-else>Logging in...</span>
+            </el-button>
+          </el-form-item>
+        </el-form>
+      </div>
+    </div>
+  </div>
+
+  <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+  <script src="../../plugins/vue/vue.js"></script>
+  <!-- 引入组件库 -->
+  <script src="../../plugins/element-ui/index.js"></script>
+  <!-- 引入axios -->
+  <script src="../../plugins/axios/axios.min.js"></script>
+  <script src="../../js/request.js"></script>
+  <script src="../../js/validate.js"></script>
+  <script src="../../api/login.js"></script>
+
+  <script>
+    new Vue({
+      el: '#login-app',
+      data() {
+        return {
+          loginForm:{
+            username: 'admin',
+            password: '123456'
+          },
+          loading: false
+        }
+      },
+      computed: {
+        loginRules() {
+          const validateUsername = (rule, value, callback) => {
+            if (value.length < 1 ) {
+              callback(new Error('Please enter the username'))
+            } else {
+              callback()
+            }
+          }
+          const validatePassword = (rule, value, callback) => {
+            if (value.length < 6) {
+              callback(new Error('The password must be more than 6 digits'))//密码必须6位以上
+            } else {
+              callback()
+            }
+          }
+          return {
+            'username': [{ 'validator': validateUsername, 'trigger': 'blur' }],
+            'password': [{ 'validator': validatePassword, 'trigger': 'blur' }]
+          }
+        }
+      },
+      created() {
+      },
+      methods: {
+        async handleLogin() {
+          this.$refs.loginForm.validate(async (valid) => {
+            if (valid) {
+              this.loading = true//当登录=true时，页面显示登录中，当=false时，按钮显示登录
+              // 异步请求/employee/login',
+              let res = await loginApi(this.loginForm)
+              // 如果返回的1，1表示登录成功，则调用将相应的数据转换为JSON
+              // res后面的函数是要求后端给前端应该包括这些信息
+              if (String(res.code) === '1') {
+                localStorage.setItem('userInfo',JSON.stringify(res.data))
+                //请求访问该页面
+                window.location.href= '../../index.html'
+              } else {
+                this.$message.error(res.msg)
+                this.loading = false
+              }
+            }
+          })
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>
