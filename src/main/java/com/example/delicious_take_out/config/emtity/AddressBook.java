@@ -32,9 +32,9 @@ public class AddressBook implements Serializable {
     //手机号
     private String phone;
 
-
-    //性别 0 女 1 男
-    private String sex;
+//
+//    //性别 0 女 1 男
+//    private String sex;
 
     //城市名称
     private String cityName;

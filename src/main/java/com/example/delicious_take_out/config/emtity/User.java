@@ -15,15 +15,14 @@ public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-
     @TableId(type = IdType.AUTO)  // 自增
     private Integer id;  // id 类型为 int 或 Integer
 
     //邮箱
-    private String Email;
+    private String email;
 
     //密码
-    private String Password;
+    private String password;
 
     //姓名
     private String name;

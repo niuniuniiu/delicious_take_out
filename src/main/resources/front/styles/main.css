@@ -6,7 +6,7 @@
 }
 
 #main .divHead {
-  background: url(../images/mainBg.png);
+  background: url(../images/img_denglu_bj.jpg);
   background-repeat: no-repeat;
   height: 152rem;
   background-size: contain;
@@ -51,7 +51,7 @@
   height: 25rem;
   opacity: 1;
   font-size: 18rem;
-  font-family: PingFangSC, PingFangSC-Regular;
+  font-family: "Times New Roman", Times, serif;
   font-weight: 500;
   text-align: left;
   color: #20232a;
@@ -60,8 +60,8 @@
 
 #main .divTitle .divStatic .divDesc .divSend {
   opacity: 1;
-  font-size: 11rem;
-  font-family: PingFangSC, PingFangSC-Regular;
+  font-size: 13rem;
+  font-family: "Times New Roman", Times, serif;
   font-weight: 400;
   text-align: left;
   color: #333333;
@@ -246,7 +246,7 @@
   width: 64rem;
   height: 24rem;
   opacity: 1;
-  background: #ffc200;
+  background: #ebb2a7;
   border-radius: 12rem;
   font-size: 12rem;
   font-family: PingFangSC, PingFangSC-Regular;
@@ -332,7 +332,7 @@
 }
 #main .divCart .btnSubmitActive {
   color: #333333;
-  background: #ffc200;
+  background: #ebb2a7;
 }
 
 #main .divCart .divGoodsNum {
@@ -422,7 +422,7 @@
   height: 30rem;
   opacity: 1;
   background: #ffffff;
-  border: 1rem solid #ffc200;
+  border: 1rem solid #ebb2a7;
   border-radius: 7rem;
   line-height: 30rem;
   padding-left: 13rem;
@@ -436,7 +436,7 @@
 }
 
 #main .dialogFlavor .divContent .spanActive {
-  background: #ffc200;
+  background: #ebb2a7;
   font-weight: 500;
 }
 
@@ -468,7 +468,7 @@
   width: 100rem;
   height: 30rem;
   opacity: 1;
-  background: #ffc200;
+  background: #ebb2a7;
   border-radius: 15rem;
   text-align: center;
   line-height: 30rem;
@@ -715,7 +715,7 @@
   width: 64rem;
   height: 24rem;
   opacity: 1;
-  background: #ffc200;
+  background: #ebb2a7;
   border-radius: 12rem;
   font-size: 12rem;
   font-family: PingFangSC, PingFangSC-Regular;
@@ -875,7 +875,7 @@
   width: 64rem;
   height: 24rem;
   opacity: 1;
-  background: #ffc200;
+  background: #ebb2a7;
   border-radius: 12rem;
   font-size: 12rem;
   font-family: PingFangSC, PingFangSC-Regular;
@@ -900,7 +900,7 @@
   width: 100rem;
   height: 30rem;
   opacity: 1;
-  background: #ffc200;
+  background: #ebb2a7;
   border-radius: 15rem;
   font-size: 14rem;
   font-family: PingFangSC, PingFangSC-Regular;

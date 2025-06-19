@@ -44,7 +44,7 @@ public class CommonController {
 
     /*文件下载*/
     @GetMapping("/download")
-    public void download(String name, HttpServletResponse response, OutputStream outputStream) {
+    public void download(String name, HttpServletResponse response) {
         //输入流，通过输入流读取文件内容
         try {
             //输入流，通过输入流读取文件内容

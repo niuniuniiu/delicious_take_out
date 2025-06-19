@@ -22,10 +22,6 @@ public class Category implements Serializable {
     @TableId(type = IdType.AUTO)  // 自增
     private Integer id;  // id 类型为 int 或 Integer
 
-    //类型 1 菜品分类 2 套餐分类
-    private Integer type;
-
-
     //分类名称
     private String name;
 

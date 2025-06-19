@@ -37,14 +37,16 @@ public class LoginCheckFilter implements Filter {
                 //页面中的图片等要放行
                 "/backend/**",
                 "/front/**",
-                "/user/login"
+                "/user/login",
+                "/front/page/signup",
+                "/user/register"
         };
 
         //判断管理端登录状态，如果已经登陆，则直接放行
         if(request.getSession().getAttribute("employee") != null){
             log.info("用户已登录,用户id为：{}",request.getSession().getAttribute("employee"));
 
-            Long empId = (Long) request.getSession().getAttribute("employee");
+            Integer empId = (Integer) request.getSession().getAttribute("employee");
             BaseContext.setCurrentId(empId);
 
             filterChain.doFilter(request, response);

@@ -1,0 +1,96 @@
+/* signup.css - 修复版 */
+
+/* 基础布局 - 与登录页保持一致 */
+#signup {
+    width: 100%;
+    max-width: 375rem;
+    margin: 0 auto;
+    padding: 0 10rem;
+    box-sizing: border-box;
+}
+
+/* 标题栏样式 */
+#signup .divHead {
+    opacity: 1;
+    background: #333333;
+    height: 88rem;
+    width: 100%;
+    font-size: 18rem;
+    font-family: PingFangSC, PingFangSC-Regular;
+    font-weight: 500;
+    text-align: center;
+    color: #ffffff;
+    line-height: 88rem;
+}
+
+/* 表单容器 - 高度改为auto以适应更多字段 */
+#signup .divContainer {
+    width: 356rem;
+    height: auto; /* 修改为自适应 */
+    min-height: 128rem; /* 保持最小高度 */
+    opacity: 1;
+    background: #ffffff;
+    border-radius: 6rem;
+    margin: 10rem auto 0;
+    position: relative;
+}
+
+/* 输入框样式 - 覆盖Element UI */
+#signup .divContainer .el-input__inner {
+    border: 0 !important;
+    height: 63rem !important;
+    padding: 0 10rem !important;
+    font-size: 14rem !important;
+    line-height: 63rem !important;
+    background: transparent !important;
+}
+
+/* 分割线样式 */
+#signup .divContainer .divSplit {
+    height: 1px;
+    background-color: #efefef;
+    margin: 0 10rem;
+}
+
+
+/* 按钮样式 */
+#signup .btnSubmit {
+    width: 356rem;
+    height: 40rem;
+    margin: 20rem auto 0;
+    border-radius: 20px;
+    border: 0;
+    font-size: 15rem;
+    font-family: PingFangSC, PingFangSC-Regular;
+    font-weight: 500;
+    text-align: center;
+    display: block;
+}
+
+/* 按钮状态 */
+#signup .btnNoPhone {
+    background: #d8d8d8 !important;
+    color: #666666 !important;
+}
+#signup .btnPhone {
+    background: #ebb2a7 !important;
+    color: #333333 !important;
+}
+#signup .btnPhone:active {
+    background: #db9081 !important;
+}
+
+/* 下拉选择器特殊处理 */
+#signup .el-select {
+    border: 0 !important;
+    height: 63rem !important;
+    padding: 0 10rem !important;
+    font-size: 14rem !important;
+    line-height: 63rem !important;
+    background: transparent !important;
+    width: 100% !important;
+}
+#signup .el-select .el-input__inner {
+    padding-left: 0 !important;
+}
+

@@ -4,8 +4,8 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0,user-scalable=no,minimal-ui">
-        <title>菩提阁</title>
-        <link rel="icon" href="../images/favico.ico">
+        <title>Delicious restaurant</title>
+<!--        <link rel="icon" href="../images/favico.ico">-->
         <!--不同屏幕尺寸根字体设置-->
         <script src="../js/base.js"></script>
         <!--element-ui的样式-->
@@ -21,14 +21,14 @@
         <div id="order" class="app">
             <div class="divHead">
                 <div class="divTitle">
-                    <i class="el-icon-arrow-left" @click="goBack"></i>Delicious
+                    <i class="el-icon-arrow-left" @click="goBack"></i>Delicious restaurant
                 </div>
             </div>
             <div class="divBody" v-if="orderList.length > 0">
                 <van-list
                     v-model="loading"
                     :finished="finished"
-                    finished-text="没有更多了"
+                    finished-text="Заказов пока нет"
                     @load="getList"
                     >
                     <van-cell v-for="(order,index) in orderList" :key="index" class="item">
@@ -143,20 +143,20 @@
                 getStatus(status){
                     let str = ''
                     switch(status){
-                        case 1:
-                            str =  '待付款'
+                        case 1:reggie
+                            str =  'Ожидает платежа'
                         break;
                         case 2:
-                            str =  '正在派送'
+                            str =  'Доставка'
                         break;
                         case 3:
-                            str =  '已派送'
+                            str =  'Отправлено'
                         break;
                         case 4:
-                            str =  '已完成'
+                            str =  'Завершенно'
                         break;
                         case 5:
-                            str =  '已取消'
+                            str =  'Отменено'
                         break;
 
                     }

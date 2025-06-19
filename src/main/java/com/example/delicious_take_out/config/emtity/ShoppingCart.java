@@ -37,7 +37,7 @@ public class ShoppingCart implements Serializable {
 
 
     //图片
-    private byte[] image;
+    private String image;
 
     private LocalDateTime createTime;
 }

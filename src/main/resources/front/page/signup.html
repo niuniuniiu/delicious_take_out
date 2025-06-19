@@ -3,105 +3,152 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0,user-scalable=no,minimal-ui">
-    <title>注册</title>
-    <!--        <link rel="icon" href="../images/favico.ico">-->
-    <!--        &lt;!&ndash;不同屏幕尺寸根字体设置&ndash;&gt;-->
+    <title>Sign Up</title>
     <script src="../js/base.js"></script>
-    <!--element-ui的样式-->
+    <!-- 样式引入顺序保持与登录页一致 -->
     <link rel="stylesheet" href="../../backend/plugins/element-ui/index.css" />
-    <!--引入vant样式-->
     <link rel="stylesheet" href="../styles/vant.min.css"/>
-    <!-- 引入样式  -->
     <link rel="stylesheet" href="../styles/index.css" />
-    <!--本页面内容的样式-->
     <link rel="stylesheet" href="../styles/login.css" />
+    <!-- 注册页专用样式 -->
+    <link rel="stylesheet" href="../styles/signup.css" />
 </head>
 <body>
-<div id="login" v-loading="loading">
-    <div class="divHead">Log-in</div>
+<div id="signup" v-loading="loading">
+    <!-- 标题栏（与登录页完全一致） -->
+    <div class="divHead">Sign Up</div>
+
+    <!-- 表单容器 -->
     <div class="divContainer">
-        <el-input placeholder=" Email" v-model="form.email"  maxlength='20'/></el-input>
+        <el-input placeholder="Email" v-model="form.email" maxlength="50"></el-input>
         <div class="divSplit"></div>
-        <el-input placeholder=" Password" v-model="form.password"  maxlength='20'/></el-input>
-        <!--                <span @click='getCode'>获取验证码</span>-->
+        <el-input placeholder="Password" v-model="form.password" type="password" maxlength="20" show-password></el-input>
+        <div class="divSplit"></div>
+        <el-input placeholder="Confirm Password" v-model="form.confirmPassword" type="password" maxlength="20" show-password></el-input>
+        <div class="divSplit"></div>
+        <el-input placeholder="Name" v-model="form.name" maxlength="20"></el-input>
+        <div class="divSplit"></div>
+        <el-select v-model="form.sex" placeholder="Select Gender">
+            <el-option label="Male" value="1"></el-option>
+            <el-option label="Female" value="0"></el-option>
+        </el-select>
     </div>
-    <div class="divMsg" v-if="msgFlag">The email is entered incorrectly, please re-enter</div>
-    <el-button type="primary" :class="{btnSubmit:1===1,btnNoPhone:!form.phone,btnPhone:form.phone}" @click="btnLogin">log in</el-button>
+    <!-- 注册按钮 -->
+    <el-button type="primary":class="{btnSubmit: true,btnNoPhone: !formValid,btnPhone: formValid}"
+               @click="btnSignUp"
+               native-type="button">
+        Sign Up
+    </el-button>
+
+    <el-button type="primary" :class="{btnSubmit: true,btnNoPhone: !formValid,btnPhone: formValid}" @click="btnLogin">Log In</el-button>
+
+
+    <!-- 底部链接 -->
+    <div class="divFooter">
+        Already have an account? <a href="login.html">Login here</a>
+    </div>
 </div>
-<!-- 开发环境版本，包含了有帮助的命令行警告 -->
+
+<!-- 引入的JS文件保持与登录页相同 -->
 <script src="../../backend/plugins/vue/vue.js"></script>
-<!-- 引入组件库 -->
 <script src="../../backend/plugins/element-ui/index.js"></script>
-<!-- 引入vant样式 -->
 <script src="../js/vant.min.js"></script>
-<!-- 引入axios -->
 <script src="../../backend/plugins/axios/axios.min.js"></script>
 <script src="../js/request.js"></script>
 <script src="../api/login.js"></script>
-</body>
 <script>
     new Vue({
-        el:"#login",
-        data(){
+        el: "#signup",
+        data() {
             return {
-                form:{
-                    email:'',
-                    password:''
+                form: {
+                    email: '',
+                    password: '',
+                    confirmPassword: '',
+                    name: '',
+                    sex: ''
                 },
-                msgFlag:false,
-                loading:false
+                msgFlag: false,
+                errorMsg: '',
+                loading: false
             }
         },
-        computed:{},
-        created(){},
-        mounted(){},
-        methods:{
-            // getCode(){
-            //     this.form.code = ''
-            //     const regex = /^(13[0-9]{9})|(15[0-9]{9})|(17[0-9]{9})|(18[0-9]{9})|(19[0-9]{9})$/;
-            //     if (regex.test(this.form.phone)) {
-            //         this.msgFlag = false
-            //         this.form.code = (Math.random()*1000000).toFixed(0)
-            //     }else{
-            //         this.msgFlag = true
-            //     }
-            // },
-            async btnLogin() {
-                // 确保用户输入了邮箱和密码
-                if (this.form.email && this.form.password) {
-                    // 校验邮箱格式是否正确
-                    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-                    if (!emailRegex.test(this.form.email)) {
-                        this.$notify({ type: 'warning', message: 'Please enter a valid email address' });
-                        return;
-                    }
-
-                    this.loading = true; // 显示加载状态
-                    try {
-                        // 向后端发送登录请求，传递邮箱和密码
-                        const res = await loginApi({ email: this.form.email, password: this.form.password });
-                        this.loading = false; // 关闭加载状态
-                        if (res.code === 1) { // 登录成功
-                            sessionStorage.setItem("userEmail", this.form.email);
-                            window.requestAnimationFrame(() => {
-                                window.location.href = '../index.html'; // 登录成功后跳转
-                            });
-                        } else {
-                            // 登录失败，显示失败消息
-                            this.$notify({ type: 'warning', message: res.msg});
-                        }
-                    } catch (error) {
-                        this.loading = false; // 关闭加载状态
-                        this.$notify({ type: 'error', message: 'Network error, please try again later' }); // 捕获请求错误
-                    }
-                } else {
-                    // 如果用户没有输入邮箱或密码，显示警告
-                    this.$notify({ type: 'warning', message: 'Please enter your email and password' });
+        computed: {
+            formValid() {
+                return this.form.email &&
+                    this.form.password &&
+                    this.form.confirmPassword &&
+                    this.form.name &&
+                    this.form.sex !== '';
+            }
+        },
+        methods: {
+            // 表单验证
+            validateForm() {
+                const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+                if (!emailRegex.test(this.form.email)) {
+                    this.$notify({ type: 'warning', message: 'Please enter a valid email address' });
+                    return false;
                 }
+
+                if (this.form.password.length < 6) {
+                    this.$notify({ type: 'warning', message: 'Password must be at least 6 characters'});
+                    return false;
+                }
+
+                if (this.form.password !== this.form.confirmPassword) {
+                    this.$notify({ type: 'warning', message: 'Passwords do not match'});
+                    return false;
+                }
+
+                if (!this.form.name.trim()) {
+                    this.$notify({ type: 'warning', message: 'Please enter your name'});
+                    return false;
+                }
+
+                if (!this.form.sex) {
+                    this.$notify({ type: 'warning', message: 'Please select your gender'});
+                    return false;
+                }
+
+                return true;
+            },
+            // 注册按钮点击事件
+            async btnSignUp() {
+                if (!this.validateForm()) return;
+
+                this.loading = true;
+                try {
+                    const res = await registerApi({
+                        email: this.form.email,  // 传递注册表单的数据
+                        password: this.form.password,
+                        name: this.form.name,
+                        sex: this.form.sex,
+                        status: 1
+                    });
+
+                    if (res.data.code === 1) {
+                        this.$message.success('Registration successful!');
+                        setTimeout(() => {
+                            window.location.href = 'login.html';
+                        }, 1500);
+                    } else {
+                        this.$notify({ type: 'warning', message: res.msg || 'Registration failed' });
+                    }
+                } catch (error) {
+                    this.$notify({ type: 'error', message: 'Network error, please try again' });
+                    console.error('Registration error:', error);
+                } finally {
+                    this.loading = false;
+                }
+            },
+            // 登录按钮点击事件
+            btnLogin() {
+                window.location.href = 'login.html';
             }
         }
-    })
+    });
 </script>
+</body>
 </html>

@@ -30,10 +30,31 @@ public class AddressBookController {
      */
     @PostMapping
     public R<AddressBook> save(@RequestBody AddressBook addressBook) {
-        addressBook.setUserId((int) BaseContext.getCurrentId());
+        addressBook.setUserId(BaseContext.getCurrentId());
         log.info("addressBook:{}", addressBook);
+
+        // 保存地址
         addressBookService.save(addressBook);
+
+        // 通过 ID 再查一遍（addressBook.getId() 在保存后会自动填充）
+        AddressBook fullAddress = addressBookService.getById(addressBook.getId());
+
+        return R.success(fullAddress); // 返回完整地址信息（含 ID、时间戳等）
+    }
+
+    @PutMapping
+    public R<AddressBook> update(@RequestBody AddressBook addressBook) {
+        addressBook.setUserId(BaseContext.getCurrentId());
+        log.info("addressBook:{}", addressBook);
+        addressBookService.updateById(addressBook);
         return R.success(addressBook);
+    }
+
+    @DeleteMapping
+    public R<String> delete(@RequestParam int ids) {
+        // 继续后续的逻辑
+        addressBookService.removeById(ids);
+        return R.success("Deleted successfully");
     }
 
     /**
@@ -91,7 +112,7 @@ public class AddressBookController {
      */
     @GetMapping("/list")
     public R<List<AddressBook>> list(AddressBook addressBook) {
-        addressBook.setUserId((int) BaseContext.getCurrentId());
+        addressBook.setUserId(BaseContext.getCurrentId());
         log.info("addressBook:{}", addressBook);
 
         //条件构造器
@@ -102,4 +123,6 @@ public class AddressBookController {
         //SQL:select * from address_book where user_id = ? order by update_time desc
         return R.success(addressBookService.list(queryWrapper));
     }
+
+
 }

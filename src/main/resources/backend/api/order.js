@@ -7,13 +7,15 @@ const getOrderDetailPage = (params) => {
   })
 }
 
-// 查看接口
+
+// 获取订单详情 + 菜品信息
 const queryOrderDetailById = (id) => {
   return $axios({
-    url: `/orderDetail/${id}`,
+    url: `/order/${id}`,
     method: 'get'
   })
 }
+
 
 // 取消，派送，完成接口
 const editOrderDetail = (params) => {

@@ -40,7 +40,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Orders> implement
     @Transactional
     public void submit(Orders orders) {
         // 获得当前用户 id
-        int userId = Math.toIntExact(BaseContext.getCurrentId());
+        int userId = BaseContext.getCurrentId();
 
         // 查询当前用户购物车数据
         LambdaQueryWrapper<ShoppingCart> wrapper = new LambdaQueryWrapper<>();
@@ -104,6 +104,24 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Orders> implement
 
         // 清空购物车数据
         shoppingCartService.remove(wrapper);
+    }
+    @Override
+    public Orders getOrderWithDetails(Integer orderId) {
+        // 查询订单主信息
+        Orders order = this.getById(orderId);
+        if (order == null) {
+            throw new CustomException("Заказ не найден");
+        }
+
+        // 查询订单明细
+        LambdaQueryWrapper<OrderDetail> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(OrderDetail::getOrderId, orderId);
+        List<OrderDetail> details = orderDetailService.list(queryWrapper);
+
+        // 设置到 order 对象中（这个字段使用了 @TableField(exist = false)）
+        order.setOrderDetails(details);
+
+        return order;
     }
 
 }

@@ -40,4 +40,36 @@ public class UserController {
         request.getSession().setAttribute("user", u.getId());
         return R.success(user);
     }
+
+    @PostMapping("/loginout")
+    public R<String> logout(HttpServletRequest request) {
+        //清理Session中保存的用户id
+        request.getSession().removeAttribute("user");
+        return R.success("Logout success");
+    }
+
+
+    @PostMapping("/register")
+    public R<User> register(@RequestBody User user) {
+        LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(User::getEmail, user.getEmail());
+
+        // 正确逻辑：如果邮箱已存在，不能注册
+        User existingUser = userService.getOne(queryWrapper);
+        if (existingUser != null) {
+            return R.error("Email already exists");
+        }
+
+        // 设置默认状态
+        user.setStatus(1);
+
+        // 保存用户
+        boolean saved = userService.save(user);
+        if (!saved) {
+            return R.error("Failed to save user");
+        }
+
+        return R.success(user);
+    }
+
 }

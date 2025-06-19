@@ -11,7 +11,7 @@
 
 #address_edit .divHead .divTitle {
   font-size: 18rem;
-  font-family: PingFangSC, PingFangSC-Regular;
+  font-family: "Times New Roman", Times, serif;
   font-weight: 500;
   text-align: center;
   color: #ffffff;
@@ -39,6 +39,7 @@
 
 #address_edit .divContent .divItem {
   height: 55rem;
+  width: auto;
   line-height: 55rem;
   font-size: 14rem;
   font-family: PingFangSC, PingFangSC-Regular;
@@ -102,7 +103,7 @@
   text-align: center;
   margin-right: 10rem;
   border-radius: 2px;
-  font-family: PingFangSC, PingFangSC-Regular;
+  font-family: "Times New Roman", Times, serif;
   font-weight: 400;
   color: #333333;
 }
@@ -130,7 +131,7 @@
 #address_edit .divContent .divSave {
   height: 36rem;
   opacity: 1;
-  background: #ffc200;
+  background: #ebb2a7;
   border-radius: 18rem;
   font-size: 15rem;
   font-family: PingFangSC, PingFangSC-Regular;

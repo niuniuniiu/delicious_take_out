@@ -35,5 +35,5 @@ public class OrderDetail implements Serializable {
     private BigDecimal amount;
 
     //图片
-    private byte[] image;
+    private String image;
 }
